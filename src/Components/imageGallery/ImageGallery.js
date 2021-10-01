@@ -7,12 +7,12 @@ import style from "./ImageGallery.module.css";
 // import { getImages } from "../../API/Api";
 import ImageGalleryItem from "../imageGalleryItem/ImageGalleryItem";
 
-const ImageGallery = ({ images, onSelect }) => {
+const ImageGallery = ({ images, onClick }) => {
   return (
     <>
       <ul className={style.ImageGallery}>
         {images.map((image, id) => (
-          <ImageGalleryItem onClick={() => onSelect(image)} key={id} image={image} />
+          <ImageGalleryItem onClick={() => onClick(image)} key={id} image={image} />
         ))}
       </ul>
     </>

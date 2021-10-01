@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { getImages } from "../API/Api";
 import Spinner from "./loader/Loader";
 import SearchBar from "./searchBar/SearchBar";
@@ -26,8 +26,9 @@ class App extends Component {
         const gallery = await getImages(searchImage, page);
         this.setState({ status: "resolved" });
         if (searchImage.trim() === "" || gallery.length === 0) {
-          return console.log(alert(`there r mo images`));
+          return console.log(alert(`there r no images`));
         }
+
         this.setState({ images: [...this.state.images, ...gallery] });
 
         window.scrollTo({
@@ -45,12 +46,15 @@ class App extends Component {
     this.setState({ searchImage: searchImage, page: 1, images: [] });
   };
 
-  handleSelectImg = imageURL => {
-    this.setState(prevState => ({ showModal: !prevState.showModal, selectedImage: imageURL }));
-  };
-
   handleloadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
+  };
+
+  toggleModal = imageURL => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+      selectedImage: imageURL
+    }));
   };
 
   render() {
@@ -62,9 +66,9 @@ class App extends Component {
         <div className={style.App}>
           <SearchBar onSubmit={this.handleSubmit} />
           {status === "pending" && <Spinner />}
-          <ImageGallery images={images} onSelect={this.handleSelectImg} />
-          {showLoadmoreBtn && <Button onClick={this.loadMore} />}
-          {showModal && <Modal scr={selectedImage.largeImageURL} alt={selectedImage.tags} />}
+          <ImageGallery images={images} onClick={this.toggleModal} />
+          {showLoadmoreBtn && <Button onClick={this.handleloadMore} />}
+          {showModal && <Modal onClick={this.toggleModal} scr={selectedImage.largeImageURL} alt={selectedImage.tags} />}
         </div>
       </>
     );

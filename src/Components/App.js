@@ -68,7 +68,7 @@ class App extends Component {
           {status === "pending" && <Spinner />}
           <ImageGallery images={images} onClick={this.toggleModal} />
           {showLoadmoreBtn && <Button onClick={this.handleloadMore} />}
-          {showModal && <Modal onClick={this.toggleModal} scr={selectedImage.largeImageURL} alt={selectedImage.tags} />}
+          {showModal && <Modal onClick={this.toggleModal} scr={selectedImage} alt={selectedImage} />}
         </div>
       </>
     );

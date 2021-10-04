@@ -21,7 +21,7 @@ const ImageGallery = ({ images, onClick }) => {
 
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(PropTypes.object),
-  onSelect: PropTypes.func
+  onClick: PropTypes.func
 };
 
 export default ImageGallery;
